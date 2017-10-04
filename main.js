@@ -1,12 +1,37 @@
 const app = new Vue({
     el: '#app',
+    data() {
+        return {
+            currentView: 'home',
+        }
+    },
     components: {
-        form_registration: {
-            template: '#reg__form'
+        home: {
+            template: '#home-template'
+        },
+
+        formReg: {
+            template: '#form-template',
+            data() {
+                return {
+                    text: 'Registration Form'
+                }
+            }
         },
 
         list: {
-            template: '#user__list'
+            template: '#list-template',
+            data() {
+                return {
+                    text: 'List User'
+                }
+            }
+        }
+    },
+
+    methods: {
+        switchView(view) {
+            this.currentView = view
         }
     }
 });

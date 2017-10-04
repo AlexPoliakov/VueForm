@@ -12,9 +12,9 @@
     <div id="app">
         <header>
             <nav>
-                <a href="#">Home</a>
-                <a href="#">Registration</a>
-                <a href="#">List Users</a>
+                <a href="#" @click="switchView('home')">HOME</a>
+                <a href="#" @click="switchView('formReg')">REGISTRATION FORM</a>
+                <a href="#" @click="switchView('list')">LIST USER</a>
             </nav>
         </header>
 
@@ -23,6 +23,67 @@
         </transition>
     </div>
 
+    <template id="home-template">
+        <div class="home__pg"></div>
+    </template>
+
+    <template id="form-template">
+        <div class="form__pg">
+            <h2 class="name__form">{{ text }}</h2>
+            <label for="name">Name:
+                <input type="text" id="name" autofocus required placeholder="Name" v-model="name">
+            </label>
+            <label for="username">Username:
+                <input type="text" id="username" required placeholder="Username" v-model="username">
+            </label>
+            <label for="email">Email:
+                <input type="email" id="email" required placeholder="Email" v-model="email">
+            </label>
+            <label for="photo">Avatar:
+                <input type="text" id="photo" required placeholder="http://" v-model="photo">
+            </label>
+            <div class="form__photo"></div>
+            <label for="age">Age:
+                <input type="number" id="age" required placeholder="Age" v-model="age">
+            </label>
+            <label for="activity" id="activ">Activity:
+                <input type="checkbox" id="activity" required v-model="activity">Yes
+            </label>
+            <label for="level">Access level:
+                <input type="select" id="level" list="your_level" required placeholder="Access level" v-model="level">
+                    <datalist id="your_level">
+                        <option value=""></option>
+                        <option value="user"></option>
+                        <option value="admin"></option>
+                        <option value="developer"></option>
+                    </datalist>
+            </label>
+            <label for="balance">Balance:
+                <input type="text" id="balance" required placeholder="Balance" v-model="balance">
+            </label>
+            <label for="phone">Phone:
+                <input type="tel" id="phone" required placeholder="Phone" v-model="phone">
+            </label>
+            <label for="address">Address:
+                <input type="text" id="address" required placeholder="Address" v-model="address">
+            </label>
+            <label for="company">Company:
+                <input type="text" id="company" required placeholder="Company" v-model="company">
+            </label>
+            <label for="bio">Biography:
+                <textarea id="bio" required placeholder="Biography" v-model="bio"></textarea>
+            </label>
+            <label for="date">Date registration:
+                <input type="datetime-local" id="date" required placeholder="Date registration" v-model="date">
+            </label>
+        </div>
+    </template>
+
+    <template id="list-template">
+        <div class="list__pg">
+            <h2 class="name__list">{{ text }}</h2>
+        </div>
+    </template>
 
     <script src="https://unpkg.com/vue@2.4.4/dist/vue.js"></script>
     <script src="main.js"></script>

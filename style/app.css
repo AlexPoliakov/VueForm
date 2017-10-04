@@ -35,8 +35,87 @@ nav a {
     text-decoration: none;
     color:  #8a8d96;
     font-weight: 400;
+    line-height: 100px;
 }
 
 nav a:hover {
     color: #272727;
+}
+
+.form__pg,
+.list__pg {
+    margin: 66px auto;
+    bottom: 0;
+    border: 1px solid lightsteelblue;
+    color: #afafaf;
+    background-color: #fff;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.home__pg {
+    width: 95%;
+    height: 85%;
+    background-color: inherit;
+}
+
+.list__pg {
+    width: 1040px;
+}
+
+.form__pg {
+    width: 840px;
+}
+
+.page-enter-active {
+    transition: all .3s ease;
+}
+.page-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.page-enter, .page-leave-to {
+    transform: scaleX(0);
+    opacity: 0;
+}
+
+.name__form,
+.name__list {
+    text-align: center;
+}
+
+label {
+    display: block;
+    font-size: 18px;
+    margin: 10px 0 5px 20px;
+}
+
+label:hover {
+    color: #272727;
+    transition: all 0.3s ease-in-out;
+}
+
+input,
+textarea {
+    width: 95%;
+    height: 25px;
+    font-size: 14px;
+    caret-color: red;
+}
+
+textarea {
+    height: 60px;
+    width: 95%;
+    font-size: 14px;
+    caret-color: red;
+}
+
+#activity {
+    width: 20px;
+    vertical-align: middle;
+}
+
+.form__photo {
+    width: 150px;
+    height: 200px;
+    border: 1px solid #afafaf;
+    margin-left: 40px;
 }
