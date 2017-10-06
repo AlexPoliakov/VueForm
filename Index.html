@@ -100,7 +100,7 @@
             <span>{{ count }}</span>
             <div class="user" v-for="user in list">
                 <ul>
-                    <li v-for="prop in user">{{ prop }}</li>
+                    <li v-for="(prop, key) in user">{{ key }}: {{ prop }}</li>
                 </ul>
             </div>
         </div>
