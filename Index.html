@@ -13,9 +13,9 @@
     <div id="app">
         <header>
             <nav>
-                <a href="#" @click="switchView('home')">HOME</a>
-                <a href="#" @click="switchView('form_reg')">REGISTRATION FORM</a>
-                <a href="#" @click="switchView('list')">LIST USER</a>
+                <a href="#" @click="switchView('Home')">HOME</a>
+                <a href="#" @click="switchView('Form_reg')">REGISTRATION FORM</a>
+                <a href="#" @click="switchView('List')">LIST USER</a>
             </nav>
         </header>
 
@@ -31,32 +31,35 @@
     <template id="form-template">
         <div class="form__pg">
             <h2 class="name__form">{{ text }}</h2>
-            <label for="name">Name:
-                <input type="text" id="name" autofocus required placeholder="Name" v-model="user.name">
+            <div class="about" v-if="userShow">
+                <h3>{{ userMessageData }}</h3>
+            </div>
+            <label for="name">First name:
+                <input type="text" id="name" autofocus required placeholder="First name" v-model="user.firstName">
             </label>
             <label for="username">Username:
-                <input type="text" id="username" required placeholder="Username" v-model="user.username">
+                <input type="text" id="username" required placeholder="Last name" v-model="user.lastName">
             </label>
             <label for="email">Email:
                 <input type="email" id="email" required placeholder="Email" v-model="user.email">
             </label>
-            <label for="photo">Avatar:
-                <input type="text" id="photo" required placeholder="http://" v-model="user.photo">
+            <label for="photo">Picture:
+                <input type="text" id="photo" required placeholder="http://" v-model="user.picture">
             </label>
             <div class="form__photo">
-                <img class="avatar" v-if='havePhoto' :src="user.photo" alt="No image">
+                <img class="avatar" v-if='havePhoto' :src="user.picture" alt="No image">
                 <a v-else href="https://www.iconfinder.com/search/?q=user+photo&price=free&style=glyph" target="_blank">
                     Add avatar
                 </a>
             </div>
             <label for="age">Your age:
-                <input type="number" id="age" required placeholder="Age" >
+                <input type="number" id="age" required placeholder="Age" v-model="user.age">
             </label>
             <label for="activity">Activity:
-                <input type="checkbox" id="activity" required v-model="user.check">Yes
+                <input type="checkbox" id="activity" required v-model="user.isActive">Yes
             </label>
             <label for="level">Access level:
-                <input type="select" id="level" list="your_level" required placeholder="Access level" v-model="user.level">
+                <input type="select" id="level" list="your_level" required placeholder="Access level" v-model="user.accessLevel">
                     <datalist id="your_level">
                         <option value=""></option>
                         <option value="user"></option>
@@ -65,22 +68,22 @@
                     </datalist>
             </label>
             <label for="balance">Balance:
-                <input type="text" id="balance" required placeholder="Balance">
+                <input type="text" id="balance" required placeholder="Balance" v-model="user.balance">
             </label>
             <label for="phone">Phone:
-                <input type="tel" id="phone" required placeholder="Phone">
+                <input type="tel" id="phone" required placeholder="Phone" v-model="user.phone">
             </label>
             <label for="address">Address:
-                <input type="text" id="address" required placeholder="Address">
+                <input type="text" id="address" required placeholder="Address" v-model="user.address">
             </label>
             <label for="company">Company:
-                <input type="text" id="company" required placeholder="Company">
+                <input type="text" id="company" required placeholder="Company" v-model="user.company">
             </label>
             <label for="bio">Biography:
-                <textarea id="bio" required placeholder="Biography"></textarea>
+                <textarea id="bio" required placeholder="Biography" v-model="user.about"></textarea>
             </label>
             <label for="date">Date registration:
-                <input type="date" id="date" required placeholder="Date registration" v-model="user.date">
+                <input type="date" id="date" required placeholder="Date registration" v-model="user.registered">
             </label>
             <button class="add_user" v-if="!show" @click="saveUser">
                 <i class="ion-person-add"></i>
@@ -95,7 +98,7 @@
         <div class="list__pg">
             <h2 class="name__list">{{ text }}</h2>
             <span>{{ count }}</span>
-            <div class="user" v-for="user in listUsers">
+            <div class="user" v-for="user in list">
                 <ul>
                     <li v-for="prop in user">{{ prop }}</li>
                 </ul>

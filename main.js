@@ -9,33 +9,36 @@ const app = new Vue({
     },
 
     components: {
-        home: {
+
+        // Component Home (&first page)
+        Home: {
             template: '#home-template'
         },
 
-        form_reg: {
+        // Component Registration Form (&second page)
+        Form_reg: {
             template: '#form-template',
             data() {
                 return {
                     text: 'Registration Form',
                     show: false,
-                    user: {
-                        name: '',
-                        username: '',
-                        email: '',
-                        photo: '',
-                        level: '',
-                        date: '',
-                        check: ''
-                    },
-                    listUsers: []
+                    user: {},
+                    messageUser: ''
                 }
             },
+            // computed for Form component
             computed: {
                 havePhoto() {
-                    return this.user.photo !== '';
+                    return this.user.picture !== '';
+                },
+                userMessageData() {
+                    return `User: ${this.user.firstName} ${this.user.lastName} tel.: ${this.user.phone}`;
+                },
+                userShow() {
+                    return (this.user.firstName && this.user.lastName);
                 }
             },
+            // method for Form component
             methods: {
                 clearForm() {
                     for (let key in this.user) {
@@ -45,6 +48,7 @@ const app = new Vue({
                 saveUser() {
                     for (let prop in this.user) {
                         if (this.user[prop] === '') {
+                            if (prop === "_id" || prop === "isActive") continue;
                             alert(`Empty field: ${prop}`)
                             return;
                         }
@@ -56,7 +60,7 @@ const app = new Vue({
                 setUserDate(obj) {
                     console.dir(obj);
                 },
-                getAllUsers() {
+                getUser() {
                     let options = {
                         headers: {
                             'Content-Type': 'application/json',
@@ -64,47 +68,64 @@ const app = new Vue({
                     };
                     axios.get('./user.json', options)
                         .then(response => {
-                            this.list.push(response.data);
-                            console.log(this.list[0]);
+                            this.user = response.data[1];
+                            this.setUserDate(this.user);
                         })
                         .catch(error => {
                             let err = new Error(error);
                             console.log(err);
                         });
-                    this.setUserDate(this.list);
-                },
+
+                }
             },
+            // created for Form component
             created() {
-                this.getAllUsers();
+                this.getUser();
             }
         },
 
-        list: {
+        // Component List (&third page)
+        List: {
             template: '#list-template',
             data() {
                 return {
                     text: 'List User',
-                    listUsers: []
+                    list: []
                 }
             },
+            // method for List component
             methods: {
-                createUser(user) {
-                    return this.listUsers.push(Object.assign({}, user));
+                getAllUser() {
+                    axios({
+                        method:'get',
+                        url:'./user.json',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    })
+                        .then(response => {
+                            this.list = [...response.data];
+                            // console.log(this.list);
+                        })
+                        .catch(error => {
+                            let err = new Error(error);
+                            console.log(err);
+                        });
                 }
             },
+            // computed for List component
             computed: {
                 count() {
-                    return (this.listUsers.length);
+                  return (this.list.length);
                 }
             },
+            // mounted for List component
             mounted() {
-                EventBus.$on('addUser', (user) => {
-                    return this.createUser(user);
-                });
+                this.getAllUser();
             }
         }
     },
-
+    // method for exemplar Vue (app)
     methods: {
         switchView(view) {
             this.currentView = view
